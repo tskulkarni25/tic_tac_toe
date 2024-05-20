@@ -1,0 +1,30 @@
+<h1>Tic Tac Toe</h1>
+
+<table>
+  <% @game.board.each_with_index do |cell, index| %>
+    <% if index % 3 == 0 %>
+      <tr>
+    <% end %>
+    <td>
+      <% if cell %>
+        <%= cell %>
+      <% else %>
+        <%= button_to '', game_move_path(position: index), method: :post %>
+      <% end %>
+    </td>
+    <% if index % 3 == 2 %>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+
+<p>Current Player: <%= @game.current_player %></p>
+
+<% if @game.winner %>
+  <% if @game.winner == 'Draw' %>
+    <h3>The game is a draw!</h3>
+  <% else %>
+    <h3>Winner: <%= @game.winner %></h3>
+  <% end %>
+  <%= button_to 'Restart Game', game_path, method: :delete %>
+<% end %>
